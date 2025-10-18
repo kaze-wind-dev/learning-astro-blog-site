@@ -1,0 +1,22 @@
+
+/* Header
+   ----------------------------------------------------------------- */
+   .l-header{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 24px 50px;
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__nav {
+    }
+    &__nav-list {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+    &__nav-link {
+        
+    }
+}

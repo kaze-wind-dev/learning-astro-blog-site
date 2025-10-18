@@ -1,0 +1,20 @@
+---
+import Logo from "../components/Logo.astro";
+import "./header.scss";
+---
+
+<header class="l-header">
+  <div class="l-header__inner">
+    <Logo />
+    <nav class="l-header__nav">
+      <ul class="l-header__nav-list">
+        <li class="l-header__nav-item">
+          <a href="/" class="l-header__nav-link">ホーム</a>
+        </li>
+        <li class="l-header__nav-item">
+          <a href="./blog" class="l-header__nav-link">ブログ</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
