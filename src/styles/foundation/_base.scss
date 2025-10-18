@@ -1,0 +1,13 @@
+/* Base
+   ----------------------------------------------------------------- */
+:root {
+  --color-base: #23ca0d;
+  --color-text: #333;
+}
+
+body {
+  font-size: 1rem;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
