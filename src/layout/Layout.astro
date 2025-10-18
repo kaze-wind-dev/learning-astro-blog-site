@@ -1,6 +1,9 @@
 ---
-const {pageTitle} = Astro.props;
+import Header from "./Header.astro";
+const { pageTitle } = Astro.props;
+import "../styles/global.scss";
 ---
+
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
@@ -10,6 +13,7 @@ const {pageTitle} = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
-   <slot>
+    <Header />
+    <slot />
   </body>
 </html>
