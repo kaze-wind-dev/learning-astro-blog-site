@@ -1,0 +1,11 @@
+---
+import type { Blog } from "../types/microcms";
+const { blog } = Astro.props as { blog: Blog };
+---
+
+<li class="c-blog-list__item">
+  <a href={`/blog/${blog.id}`} class="c-blog-list__link">
+    <h3 class="c-blog-list__title">{blog.title}</h3>
+    <p class="c-blog-list__description">{blog.description}</p>
+  </a>
+</li>

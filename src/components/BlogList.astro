@@ -1,0 +1,22 @@
+---
+import type { Blog } from "../types/microcms";
+import BlogItem from "./BlogItem.astro";
+const { blogList } = Astro.props as { blogList: Blog[] };
+
+---
+
+<>
+  {
+    blogList.length > 0 ? (
+      <ul class="c-blog-list">
+        {blogList.map((blog) => {
+          return (
+            <BlogItem blog={blog} />
+          );
+        })}
+      </ul>
+    ) : (
+      <p>ブログがありません</p>
+    )
+  }
+</>
