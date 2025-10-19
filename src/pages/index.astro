@@ -1,8 +1,17 @@
 ---
 import Layout from "../layout/Layout.astro";
+import { getBlogList } from "../libs/api/microcms";
+import BlogList from "../components/BlogList.astro";
 const pageTitle = "Astroで作るブログサイト";
+
+const { contents: blogList } = await getBlogList({
+  limit: 3,
+});
 ---
 
 <Layout pageTitle={pageTitle}>
-  <h1>Astro</h1>
+  <main>
+    <h1>ブログ一覧</h1>
+    <BlogList blogList={blogList} />
+  </main>
 </Layout>
