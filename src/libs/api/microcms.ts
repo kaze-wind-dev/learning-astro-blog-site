@@ -41,23 +41,48 @@ export const getPosts = async <T>(
     throw new Error(message);
   }
 };
+// 記事の全件取得用の共通関数
+export const getAllPosts = async <T>(
+  endpoint: string,
+  queries?: MicroCMSQueries,
+  customRequestInit?: CustomRequestInit
+) => {
+  try {
+    const data = await client.getAllContents<T>({
+      endpoint,
+      queries,
+      customRequestInit,
+    });
+    return data;
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    console.error(message, error);
+    throw new Error(message);
+  }
+};
 
 // ブログ一覧取得
 export const getBlogList = async (queries?: MicroCMSQueries) => {
   return getPosts<Blog>("blog", queries);
 };
 
+// ブログ全件取得
+export const getAllBlogList = async (queries?: MicroCMSQueries) => {
+  return getAllPosts<Blog>("blog", queries);
+};
+
 // ブログ詳細取得
 export const getBlogDetail = async (id: string) => {
   try {
     const data = await client.get<Blog>({
-     endpoint: "blog",
-     contentId: id,
+      endpoint: "blog",
+      contentId: id,
     });
     return data;
   } catch (error) {
     const message =
-    error instanceof Error ? error.message : "An unknown error occurred";
+      error instanceof Error ? error.message : "An unknown error occurred";
     console.error(message, error);
     throw new Error(message);
   }
