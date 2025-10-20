@@ -1,20 +1,25 @@
 ---
 import Layout from "../../layout/Layout.astro";
-import { getBlogList, getBlogDetail } from "../../libs/api/microcms";
-import BlogList from "../../components/BlogList.astro";
+import { getAllBlogList, getBlogDetail } from "../../libs/api/microcms";
 
 export async function getStaticPaths() {
-  const blogList = await getBlogList();
-  return blogList.contents.map((blog) => ({
+  const blogList = await getAllBlogList({
+    fields: ["id"],
+  });
+  return blogList.map((blog) => ({
     params: {
       id: blog.id,
     },
   }));
 }
-
 const { id } = Astro.params;
+if(!id) {
+  return Astro.redirect("/404");
+}
+
 const blog = await getBlogDetail(id);
-const pageTitle = "ブログ一覧";
+const pageTitle = blog.title;
+
 ---
 
 <Layout pageTitle={pageTitle}>
