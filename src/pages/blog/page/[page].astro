@@ -1,0 +1,29 @@
+---
+import { BLOG_LIMIT } from "../../../constants";
+import Layout from "../../../layout/Layout.astro";
+import { getBlogList } from "../../../libs/api/microcms";
+import BlogList from "../../../components/BlogList.astro";
+
+const pageTitle = "ブログ一覧";
+
+export async function getStaticPaths() {
+  const { totalCount } = await getBlogList({ limit: BLOG_LIMIT });
+  const totalPages = Math.ceil(totalCount / BLOG_LIMIT);
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+  }));
+}
+const page = Number(Astro.params.page);
+console.log(page);
+
+const { contents: blogList } = await getBlogList({
+  limit: BLOG_LIMIT,
+});
+---
+
+<Layout pageTitle={pageTitle}>
+  <main>
+    <h1>ブログ一覧</h1>
+    <BlogList blogList={blogList} />
+  </main>
+</Layout>
