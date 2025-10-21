@@ -1,0 +1,72 @@
+---
+interface PaginationProps {
+  limit: number;
+  totalCount: number;
+  page: number;
+  basePath: string;
+}
+const { limit, totalCount, page, basePath } = Astro.props as PaginationProps;
+const totalPages = Math.ceil(totalCount / limit);
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+const currentPage = Number.isNaN(page) ? 1 : page;
+
+const firstPage = 1;
+const lastPage = totalPages;
+let displayPages = pageNumbers;
+if (currentPage - 4 < 1) {
+  displayPages = pageNumbers.toSpliced(5, 4, NaN);
+}
+if (currentPage - 4 >= 1) {
+  displayPages = pageNumbers.toSpliced(
+    1,
+    lastPage - 1,
+    NaN,
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    NaN,
+    lastPage
+  );
+}
+if (currentPage + 4 > totalPages) {
+  displayPages = pageNumbers.toSpliced(1, 4, NaN);
+}
+
+const getDisplayPages = () => {
+  // 関数化する
+  // toSplideではなく、配列を作成する方法を考える
+};
+---
+
+<nav class="c-pagination" aria-label="ページネーション">
+  <ul class="c-pagination__list">
+    {
+      displayPages.map((pageNumber) => {
+        const isCurrent = pageNumber === currentPage;
+        return (
+          <li
+            class="c-pagination__item"
+            aria-current={isCurrent ? "page" : undefined}
+          >
+            {Number.isNaN(pageNumber) ? (
+              <span class="c-pagination__link" aria-hidden="true">
+                ...
+              </span>
+            ) : (
+              <a
+                href={
+                  pageNumber === 1
+                    ? `${basePath}`
+                    : `${basePath}/page/${pageNumber}`
+                }
+                class:list={["c-pagination__link", { "is-current": isCurrent }]}
+              >
+                {pageNumber}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
