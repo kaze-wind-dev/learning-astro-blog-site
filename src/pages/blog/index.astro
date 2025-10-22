@@ -3,10 +3,14 @@ import { BLOG_LIMIT } from "../../constants";
 import Layout from "../../layout/Layout.astro";
 import { getBlogList } from "../../libs/api/microcms";
 import BlogList from "../../components/BlogList.astro";
+import Pagination from "../../components/Pagination.astro";
 const pageTitle = "ブログ一覧";
 
-const { contents: blogList } = await getBlogList({
-    limit: BLOG_LIMIT,
+const page = Number(Astro.params.page);
+console.log(page);
+
+const { contents: blogList, totalCount } = await getBlogList({
+  limit: BLOG_LIMIT,
 });
 ---
 
@@ -14,13 +18,11 @@ const { contents: blogList } = await getBlogList({
     <main>
         <h1>ブログ一覧</h1>
         <BlogList blogList={blogList} />
-        <ul class="c-pagination">
-            <li class="c-pagination__item">
-                <a href="/blog/page/1" class="c-pagination__link">1</a>
-            </li>
-            <li class="c-pagination__item">
-                <a href="/blog/page/2" class="c-pagination__link">2</a>
-            </li>
-        </ul>
+        <Pagination
+        limit={BLOG_LIMIT}
+        totalCount={totalCount}
+        page={page}
+        basePath="/blog"
+      />
     </main>
 </Layout>
