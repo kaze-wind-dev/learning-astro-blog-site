@@ -3,6 +3,7 @@ import { BLOG_LIMIT } from "../../../constants";
 import Layout from "../../../layout/Layout.astro";
 import { getBlogList } from "../../../libs/api/microcms";
 import BlogList from "../../../components/BlogList.astro";
+import Pagination from "../../../components/Pagination.astro";
 
 const pageTitle = "ブログ一覧";
 
@@ -13,11 +14,11 @@ export async function getStaticPaths() {
     params: { page: String(i + 1) },
   }));
 }
-const page = Number(Astro.params.page);
-console.log(page);
+const page = isNaN(Number(Astro.params.page)) ? 1 : Number(Astro.params.page);
 
-const { contents: blogList } = await getBlogList({
+const { contents: blogList, totalCount } = await getBlogList({
   limit: BLOG_LIMIT,
+  offset: (page - 1) * BLOG_LIMIT,
 });
 ---
 
@@ -25,5 +26,11 @@ const { contents: blogList } = await getBlogList({
   <main>
     <h1>ブログ一覧</h1>
     <BlogList blogList={blogList} />
+    <Pagination
+      limit={BLOG_LIMIT}
+      totalCount={totalCount}
+      page={page}
+      basePath="/blog"
+    />
   </main>
 </Layout>
