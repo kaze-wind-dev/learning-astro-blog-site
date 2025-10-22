@@ -7,41 +7,52 @@ interface PaginationProps {
 }
 const { limit, totalCount, page, basePath } = Astro.props as PaginationProps;
 const totalPages = Math.ceil(totalCount / limit);
-const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 const currentPage = Number.isNaN(page) ? 1 : page;
-
-const firstPage = 1;
-const lastPage = totalPages;
-let displayPages = pageNumbers;
-if (currentPage - 4 < 1) {
-  displayPages = pageNumbers.toSpliced(5, 4, NaN);
-}
-if (currentPage - 4 >= 1) {
-  displayPages = pageNumbers.toSpliced(
+const nextPage = currentPage + 1;
+const prevPage = currentPage - 1;
+const getDisplayPages = (currentPage: number, totalPages: number) => {
+  const maxDisplay = 7;
+  if (totalPages <= maxDisplay) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  if (currentPage <= 4) {
+    return [1, 2, 3, 4, 5, NaN, totalPages];
+  }
+  if (currentPage > totalPages - 4) {
+    return [
+      1,
+      NaN,
+      totalPages - 4,
+      totalPages - 3,
+      totalPages - 2,
+      totalPages - 1,
+      totalPages,
+    ];
+  }
+  return [
     1,
-    lastPage - 1,
     NaN,
     currentPage - 1,
     currentPage,
     currentPage + 1,
     NaN,
-    lastPage
-  );
-}
-if (currentPage + 4 > totalPages) {
-  displayPages = pageNumbers.toSpliced(1, 4, NaN);
-}
-
-const getDisplayPages = () => {
-  // 関数化する
-  // toSplideではなく、配列を作成する方法を考える
+    totalPages,
+  ];
 };
+const pageNumbers = getDisplayPages(currentPage, totalPages);
 ---
 
 <nav class="c-pagination" aria-label="ページネーション">
   <ul class="c-pagination__list">
     {
-      displayPages.map((pageNumber) => {
+      currentPage > 1 && (
+        <li class="c-pagination__item">
+          <a href={`${basePath}/page/${prevPage}`} class:list={["c-pagination__link", { "is-disabled": currentPage === 1 }]}>前へ</a>
+        </li>
+      )
+    }
+    {
+      pageNumbers.map((pageNumber) => {
         const isCurrent = pageNumber === currentPage;
         return (
           <li
@@ -67,6 +78,18 @@ const getDisplayPages = () => {
           </li>
         );
       })
+    }
+    {
+      currentPage < totalPages && (
+        <li class="c-pagination__item">
+          <a
+            href={`${basePath}/page/${nextPage}`}
+            class:list={["c-pagination__link"]}
+          >
+            次へ
+          </a>
+        </li>
+      )
     }
   </ul>
 </nav>
