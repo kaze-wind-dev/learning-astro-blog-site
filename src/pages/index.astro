@@ -2,6 +2,7 @@
 import Layout from "../layout/Layout.astro";
 import { getBlogList } from "../libs/api/microcms";
 import BlogList from "../components/BlogList.astro";
+import { CountButton } from "../components/CountButton";
 const pageTitle = "Astroで作るブログサイト";
 
 const { contents: blogList } = await getBlogList({
@@ -13,5 +14,13 @@ const { contents: blogList } = await getBlogList({
   <main>
     <h1>ブログ一覧</h1>
     <BlogList blogList={blogList} />
+    <!-- クライアントで読み込まれ、読み込みと同時 451ms-->
+    <CountButton client:load/>
+    <!-- クライアントで読み込まれ、初期読み込み完了後にアイドル状態になったタイミング -->
+    <CountButton client:idle/>
+    <!-- クライアントで読み込まれ、コンポーネントがビューポートに入ったタイミング -->
+    <CountButton client:visible/>
+    <!--　クライアントで読み込まれ、ほぼloadと同タイミング -->
+    <CountButton client:only="react" />
   </main>
 </Layout>
