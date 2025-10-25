@@ -1,9 +1,10 @@
 ---
 import Logo from "../components/Logo.astro";
+import { fade } from "astro:transitions";
 import "./header.scss";
 ---
 
-<header class="l-header">
+<header class="l-header" transition:animate={fade({duration: "2s"})}>
   <div class="l-header__inner">
     <Logo />
     <nav class="l-header__nav">

@@ -1,26 +1,103 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layout/Layout.astro";
 import { getBlogList } from "../libs/api/microcms";
 import BlogList from "../components/BlogList.astro";
+
 import { CountButton } from "../components/CountButton";
+import "./topPage.scss";
 const pageTitle = "Astroで作るブログサイト";
 
 const { contents: blogList } = await getBlogList({
   limit: 3,
 });
+
+import NoImage from "../images/noimage.jpg";
+
+
+const anim = {
+  old: {
+    name: "bump",
+    duration: "0.5s",
+    easing: "ease-in",
+    direction: "reverse",
+  },
+  new: {
+    name: "bump",
+    duration: "0.5s",
+    easing: "ease-in-out",
+  },
+};
+
+const customTransition = {
+  forwards: anim,
+  backwards: anim,
+};
+const bounceAnimation = {
+  old: {
+    name: "bounce",
+    duration: "0.7s",
+    easing: "linear",
+    fillMode: "forwards",
+  },
+  new: {
+    name: "bounce",
+    duration: "0.7s",
+    easing: "linear",
+    fillMode: "backwards",
+  },
+};
+
+const bounce = {
+  forwards: bounceAnimation,
+  backwards: bounceAnimation,
+};
 ---
 
 <Layout pageTitle={pageTitle}>
-  <main>
+  <!-- <main transition:name="main" transition:animate="none"> -->
+   <main>
+    <div class="hero" transition:animate={customTransition}>Hero</div>
+    <aside transition:animate={bounce}>
+      <h2>サイドバー</h2>
+    </aside>
+
     <h1>ブログ一覧</h1>
     <BlogList blogList={blogList} />
     <!-- クライアントで読み込まれ、読み込みと同時 451ms-->
-    <CountButton client:load/>
+    <!-- <CountButton client:load/> -->
     <!-- クライアントで読み込まれ、初期読み込み完了後にアイドル状態になったタイミング -->
-    <CountButton client:idle/>
+    <!-- <CountButton client:idle/> -->
     <!-- クライアントで読み込まれ、コンポーネントがビューポートに入ったタイミング -->
-    <CountButton client:visible/>
+    <!-- <CountButton client:visible/> -->
     <!--　クライアントで読み込まれ、ほぼloadと同タイミング -->
-    <CountButton client:only="react" />
+    <!-- <CountButton client:only="react" /> -->
+    <section class="p-gallery">
+      <h2>ギャラリー</h2>
+      <div class="p-gallery__items">
+        <div class="p-gallery__item" >
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        <div class="p-gallery__item">
+          <Image src={NoImage} alt="ギャラリー画像" width="640" height="480" >
+        </div>
+        
+      </div>
+    </section>
   </main>
 </Layout>

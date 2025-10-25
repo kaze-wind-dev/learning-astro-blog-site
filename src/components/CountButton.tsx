@@ -5,12 +5,12 @@ export const CountButton = () => {
   const handleClick = () => {
     setCount((prev: number) => prev + 1);
   };
-  useEffect(() => {
-      console.log('Counter mounted:', new Date().toLocaleTimeString());
-    }, []);
+  // useEffect(() => {
+  //     console.log('Counter mounted:', new Date().toLocaleTimeString());
+  //   }, []);
   return (
     <>
-      <button onClick={handleClick} style={{marginBottom: "600px"}}>ボタンを押してください！</button>
+      <button onClick={handleClick} >ボタンを押してください！</button>
       <p>現在押された回数は{count}回です！</p>
     </>
   );
