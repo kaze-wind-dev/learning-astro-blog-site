@@ -1,4 +1,4 @@
-import type { MicroCMSListContent,MicroCMSListResponse } from "microcms-js-sdk";
+import type { MicroCMSListContent,MicroCMSListResponse,MicroCMSImage } from "microcms-js-sdk";
 
 export type Category = {
     name: string;
@@ -6,7 +6,7 @@ export type Category = {
 
 export type Blog = {
   title: string;
-  thumbnail?: string;
+  thumbnail?: MicroCMSImage;
   content: string;
   description: string;
   category?: string;
