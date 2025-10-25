@@ -2,7 +2,7 @@
 import Layout from "../../layout/Layout.astro";
 import type { Blog } from "../../types/microcms";
 import { getAllBlogList, getBlogDetail } from "../../libs/api/microcms";
-import "./blogDetail.scss";
+import "./_blogDetail.scss";
 export async function getStaticPaths() {
   const blogList = await getAllBlogList({
     fields: ["id"],

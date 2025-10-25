@@ -1,0 +1,23 @@
+---
+import Layout from "../../layout/Layout.astro";
+const pageTitle = "ドキュメント一覧";
+import { getCollection } from "astro:content";
+const docs = await getCollection("docs");
+// console.log(docs);
+---
+
+<Layout pageTitle={pageTitle}>
+  <!-- <main transition:name="main" transition:animate="none"> -->
+  <main>
+    <h1>ドキュメント一覧</h1>
+
+    {
+      docs.map((doc) => (
+        <div>
+          <h2>{doc.data.title}</h2>
+          <time>{doc.data.date.toLocaleDateString()}</time>
+        </div>
+      ))
+    }
+  </main>
+</Layout>

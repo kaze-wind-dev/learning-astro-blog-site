@@ -5,7 +5,7 @@ import { getBlogList } from "../libs/api/microcms";
 import BlogList from "../components/BlogList.astro";
 
 import { CountButton } from "../components/CountButton";
-import "./topPage.scss";
+import "./_topPage.scss";
 const pageTitle = "Astroで作るブログサイト";
 
 const { contents: blogList } = await getBlogList({
