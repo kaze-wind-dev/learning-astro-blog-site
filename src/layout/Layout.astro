@@ -5,12 +5,11 @@ import Header from "./Header.astro";
 const { pageTitle } = Astro.props;
 import "../styles/global.scss";
 import { CountButton } from "../components/CountButton";
+export const prerender = false;
 // リクエスト情報にアクセス
 const url = Astro.url;
 const userAgent = Astro.request.headers.get("user-agent");
 const now = new Date().toLocaleString('ja-JP');
-export const prerender = false;
-console.log(Astro.request);
 ---
 
 <html lang="ja">
