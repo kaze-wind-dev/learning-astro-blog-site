@@ -1,0 +1,25 @@
+---
+import Layout from "../../layout/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const docs = await getCollection("docs");
+  return docs.map((doc) => ({
+    params: { id: doc.id },
+    props: { doc },
+  }));
+}
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+
+---
+
+<Layout pageTitle={doc.data.title}>
+  <main>
+    <article>
+      <h1>{doc.data.title}</h1>
+      <time>{doc.data.date.toLocaleDateString()}</time>
+      <Content />
+    </article>
+  </main>
+</Layout>

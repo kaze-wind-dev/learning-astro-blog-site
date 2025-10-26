@@ -1,5 +1,4 @@
 ---
-layout: '../../layout/Layout.astro'
 title: 'Astro.js ページネーション実装ガイド'
 date: 2025-10-24
 ---

@@ -1,0 +1,13 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+<Layout pageTitle={frontmatter.title}>
+    <main>
+        <article>
+            <h1>{frontmatter.title}</h1>
+            <time>{frontmatter.date.toLocaleDateString()}</time>
+            <slot />
+        </article>
+    </main>
+</Layout>

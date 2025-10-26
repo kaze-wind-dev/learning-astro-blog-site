@@ -1,5 +1,4 @@
 ---
-layout: '../../layout/Layout.astro'
 title: '【Astro.js】インテグレーション'
 date: 2025-10-25
 ---
