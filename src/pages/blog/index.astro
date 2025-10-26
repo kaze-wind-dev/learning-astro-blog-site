@@ -12,6 +12,8 @@ const page = Number(Astro.params.page);
 const { contents: blogList, totalCount } = await getBlogList({
   limit: BLOG_LIMIT,
 });
+
+
 ---
 
 <Layout pageTitle={pageTitle}>
