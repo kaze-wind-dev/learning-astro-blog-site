@@ -9,8 +9,8 @@ import type { Blog } from "../../types/microcms";
 
 import { createClient } from "microcms-js-sdk";
 
-const serciveDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
-const apiKey = import.meta.env.MICROCMS_API_KEY;
+const serciveDomain = process.env.MICROCMS_SERVICE_DOMAIN;
+const apiKey = process.env.MICROCMS_API_KEY;
 
 if (!serciveDomain || !apiKey) {
   throw new Error("MICROCMS_SERVICE_DOMAIN or MICROCMS_API_KEY is not set");
