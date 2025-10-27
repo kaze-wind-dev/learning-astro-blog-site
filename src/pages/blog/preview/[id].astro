@@ -1,36 +1,41 @@
 ---
-
 import Layout from "../../../layout/Layout.astro";
 import type { Blog } from "../../../types/microcms";
-import {  getBlogDetail } from "../../../libs/api/microcms";
+import { getBlogDetail } from "../../../libs/api/microcms";
 import "../_blogDetail.scss";
 
 export const prerender = false;
 
 const url = new URL(Astro.url);
-const draftKey = url.searchParams.get('draftKey');
+const draftKey = url.searchParams.get("draftKey");
+console.log(draftKey);
 const { id } = Astro.params;
-if(!draftKey || !id) {
+console.log(id);
+if (!draftKey || !id) {
   return Astro.redirect("/404");
 }
-const blog: Blog = await getBlogDetail(id, { draftKey});
+const blog: Blog = await getBlogDetail(id, { draftKey: draftKey });
 const pageTitle = blog.title;
-
 ---
 
 <Layout pageTitle={pageTitle}>
   <main>
     <article class="c-post-detail">
       <h1 class="title">{blog.title}</h1>
-      {blog.thumbnail && (
-        <div class="c-post-detail__thumbnail">
-        <img src={blog.thumbnail.url} alt={blog.title} transition:name={`thumbnail-${blog.id}`}/>
-    </div>
-      )}
+      {
+        blog.thumbnail && (
+          <div class="c-post-detail__thumbnail">
+            <img
+              src={blog.thumbnail.url}
+              alt={blog.title}
+              transition:name={`thumbnail-${blog.id}`}
+            />
+          </div>
+        )
+      }
       <p class="publishedAt">公開日時：{blog.publishedAt}</p>
       <div class="post" set:html={blog.content} />
     </article>
     <ul class=""></ul>
   </main>
 </Layout>
-

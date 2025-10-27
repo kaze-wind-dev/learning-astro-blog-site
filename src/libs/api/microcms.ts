@@ -75,7 +75,7 @@ export const getAllBlogList = async (queries?: MicroCMSQueries) => {
 // ブログ詳細取得
 export const getBlogDetail = async (id: string, queries?: MicroCMSQueries) => {
   try {
-    const data = await client.get<Blog>({
+    const data = await client.getListDetail<Blog>({
       endpoint: "blog",
       contentId: id,
       queries,
