@@ -5,15 +5,16 @@ import type { Blog } from "../../../types/microcms";
 import {  getBlogDetail } from "../../../libs/api/microcms";
 import "../_blogDetail.scss";
 
-const url = new URL(Astro.request.url);
+export const prerender = false;
+
+const url = new URL(Astro.url);
 const draftKey = url.searchParams.get('draftKey');
 const { id } = Astro.params;
 if(!draftKey || !id) {
   return Astro.redirect("/404");
 }
-const blog: Blog = await getBlogDetail(id, { draftKey: draftKey});
+const blog: Blog = await getBlogDetail(id, { draftKey});
 const pageTitle = blog.title;
-export const prerender = false;
 
 ---
 
@@ -32,3 +33,4 @@ export const prerender = false;
     <ul class=""></ul>
   </main>
 </Layout>
+
