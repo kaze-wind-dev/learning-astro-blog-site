@@ -1,0 +1,11 @@
+---
+import Layout from "../layout/Layout.astro";
+import FeedbackForm from "../components/FeedbackForm";
+const pageTitle = "Contact";
+---
+<Layout pageTitle={pageTitle}>
+  <main>
+    <h1>Contact</h1>
+    <FeedbackForm client:load />
+  </main>
+</Layout>

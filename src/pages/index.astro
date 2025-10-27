@@ -52,13 +52,14 @@ const bounce = {
   forwards: bounceAnimation,
   backwards: bounceAnimation,
 };
-
-
+// export const prerender = false;
+// const userAgent = Astro.request.headers.get("user-agent");
 ---
 
 <Layout pageTitle={pageTitle}>
   <!-- <main transition:name="main" transition:animate="none"> -->
    <main>
+    <!-- <p>ユーザーエージェント: {userAgent}</p> -->
     <div class="hero" transition:animate={customTransition}>Hero</div>
     <aside transition:animate={bounce}>
       <h2>サイドバー</h2>
